@@ -6,7 +6,7 @@ interface Props {
   title: string;
   description: string;
   icon: LucideIcon;
-  iconColour?: string;
+  iconColor?: string;
   bgColor?: string;
 }
 
@@ -14,13 +14,13 @@ const Heading: NextPage<Props> = ({
   title,
   description,
   icon: Icon,
-  iconColour,
+  iconColor,
   bgColor,
 }) => {
   return (
     <div className="px-4 lg:px-8 flex items-center gap-x-3 mb-8">
       <div className={cn("p-2 w-fit rounded-md ", bgColor)}>
-        <Icon className={cn("w-10 h-10", iconColour)} />
+        <Icon className={cn("w-10 h-10", iconColor)} />
       </div>
       <div>
         <h2 className="text-3xl font-bold">{title}</h2>

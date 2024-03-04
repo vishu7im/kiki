@@ -4,9 +4,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import axios from "axios";
-
+import ReactMarkDown from "react-markdown";
 import Heading from "@/components/Heading";
-import { MessagesSquare } from "lucide-react";
+import { Code } from "lucide-react";
 import { NextPage } from "next";
 import formSchema from "./constants";
 import {
@@ -30,7 +30,7 @@ export interface ChatCompletionUserMessageParam {
   content: string | null;
   role: string;
 }
-const conversationPage: NextPage = () => {
+const CodePage: NextPage = () => {
   const [messages, setMessages] = useState<ChatCompletionUserMessageParam[]>(
     []
   );
@@ -59,7 +59,7 @@ const conversationPage: NextPage = () => {
         messages: NewMessages,
       };
 
-      const res = await axios.post("/api/conversation", playload);
+      const res = await axios.post("/api/code", playload);
 
       setMessages((current) => [...current, userMessage, res.data]);
       form.reset();
@@ -74,11 +74,11 @@ const conversationPage: NextPage = () => {
   return (
     <div>
       <Heading
-        title="Conversation"
-        description="Our most advanced conversation model."
-        icon={MessagesSquare}
-        iconColor="text-violet-500"
-        bgColor="bg-violet-500/10"
+        title="Code Generation"
+        description="Generate code using descriptive text."
+        icon={Code}
+        iconColor="text-green-700"
+        bgColor="bg-green-700/10"
       />
       <div className="px-4 lg:px-8">
         <div>
@@ -106,7 +106,7 @@ const conversationPage: NextPage = () => {
                       <Input
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                         disabled={isLoading}
-                        placeholder="How do I calculate the radius of a circle?"
+                        placeholder="Simple toggle button using react hooks."
                         {...field}
                       />
                     </FormControl>
@@ -145,7 +145,21 @@ const conversationPage: NextPage = () => {
                 )}
               >
                 {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-                <p className="text-sm">{message.content}</p>
+                <ReactMarkDown
+                  components={{
+                    pre: ({ node, ...props }) => (
+                      <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg">
+                        <pre {...props} />
+                      </div>
+                    ),
+                    code: ({ node, ...props }) => (
+                      <code className="bg-black/10 rounded-lg p-1" {...props} />
+                    ),
+                  }}
+                  className="text-sm overflow-hidden leading-7"
+                >
+                  {message.content || ""}
+                </ReactMarkDown>
               </div>
             ))}
           </div>
@@ -155,4 +169,4 @@ const conversationPage: NextPage = () => {
   );
 };
 
-export default conversationPage;
+export default CodePage;
