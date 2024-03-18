@@ -35,8 +35,10 @@ import {
 import { Download, ImageIcon } from "lucide-react";
 import Image from "next/image";
 import { Card, CardFooter } from "@/components/ui/card";
+import { useProModal } from "@/hooks/use-pro-modal";
 
 const ImagePage: NextPage = () => {
+  const proModal = useProModal();
   const [images, setImages] = useState<string[]>([]);
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -59,8 +61,9 @@ const ImagePage: NextPage = () => {
       setImages(urls);
       form.reset();
     } catch (error: any) {
-      // TODO: open pro model
-      console.log(error);
+      if (error?.response?.status === 401) {
+        proModal.onOpen();
+      }
     } finally {
       router.refresh();
     }

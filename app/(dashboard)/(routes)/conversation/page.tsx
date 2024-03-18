@@ -25,12 +25,14 @@ import { cn } from "@/lib/utils";
 import { Loader } from "@/components/Loader";
 import { UserAvatar } from "@/components/user-avatar";
 import { BotAvatar } from "@/components/bot-avatar";
+import { useProModal } from "@/hooks/use-pro-modal";
 
 export interface ChatCompletionUserMessageParam {
   content: string | null;
   role: string;
 }
 const conversationPage: NextPage = () => {
+  const proModal = useProModal();
   const [messages, setMessages] = useState<ChatCompletionUserMessageParam[]>(
     []
   );
@@ -65,7 +67,9 @@ const conversationPage: NextPage = () => {
       form.reset();
     } catch (error: any) {
       // TODO: open pro model
-      console.log(error);
+      if (error?.response?.status === 401) {
+        proModal.onOpen();
+      }
     } finally {
       router.refresh();
     }

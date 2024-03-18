@@ -17,10 +17,13 @@ import {
   VideoIcon,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
+import FreeCounter from "./FreeCounter";
 
 const montserrat = Montserrat({ weight: "600", subsets: ["latin"] });
 
-interface Props {}
+interface Props {
+  apiLimitCount: number;
+}
 
 const routes = [
   {
@@ -43,13 +46,13 @@ const routes = [
   },
   {
     lable: "Music Generation",
-    icon: VideoIcon,
+    icon: MusicIcon,
     href: "/music",
     color: "text-orange-500",
   },
   {
     lable: "Video Generation",
-    icon: MusicIcon,
+    icon: VideoIcon,
     href: "/video",
     color: "text-emerald-500",
   },
@@ -66,7 +69,7 @@ const routes = [
   },
 ];
 
-const Sidebar: NextPage<Props> = ({}) => {
+const Sidebar: NextPage<Props> = ({ apiLimitCount = 0 }) => {
   const pathname = usePathname();
 
   return (
@@ -102,6 +105,7 @@ const Sidebar: NextPage<Props> = ({}) => {
           ))}
         </div>
       </div>
+      <FreeCounter apiLimitCount={apiLimitCount} />
     </div>
   );
 };
