@@ -31,7 +31,7 @@ export interface ChatCompletionUserMessageParam {
   content: string | null;
   role: string;
 }
-const conversationPage: NextPage = () => {
+const ConversationPage: NextPage = () => {
   // const proModal = useProModal();
   const [messages, setMessages] = useState<ChatCompletionUserMessageParam[]>(
     []
@@ -159,4 +159,4 @@ const conversationPage: NextPage = () => {
   );
 };
 
-export default conversationPage;
+export default ConversationPage;
