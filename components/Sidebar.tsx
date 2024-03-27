@@ -21,10 +21,6 @@ import FreeCounter from "./FreeCounter";
 
 const montserrat = Montserrat({ weight: "600", subsets: ["latin"] });
 
-interface Props {
-  apiLimitCount: number;
-}
-
 const routes = [
   {
     lable: "DashBoard",
@@ -62,14 +58,9 @@ const routes = [
     href: "/code",
     color: "text-violet-500",
   },
-  {
-    lable: "Setting",
-    icon: Settings,
-    href: "/setting",
-  },
 ];
 
-const Sidebar: NextPage<Props> = ({ apiLimitCount = 0 }) => {
+const Sidebar: NextPage = () => {
   const pathname = usePathname();
 
   return (
@@ -105,7 +96,7 @@ const Sidebar: NextPage<Props> = ({ apiLimitCount = 0 }) => {
           ))}
         </div>
       </div>
-      <FreeCounter apiLimitCount={apiLimitCount} />
+      {/* <FreeCounter apiLimitCount={apiLimitCount} /> */}
     </div>
   );
 };
