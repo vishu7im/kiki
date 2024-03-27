@@ -26,11 +26,11 @@ import { Loader } from "@/components/Loader";
 import { UserAvatar } from "@/components/user-avatar";
 import { BotAvatar } from "@/components/bot-avatar";
 import { FileAudio } from "lucide-react";
-import { useProModal } from "@/hooks/use-pro-modal";
+// import { useProModal } from "@/hooks/use-pro-modal";
 
 const MusicPage: NextPage = () => {
   const router = useRouter();
-  const proModal = useProModal();
+  // const proModal = useProModal();
   const [video, setVideo] = useState<string>();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -52,7 +52,7 @@ const MusicPage: NextPage = () => {
       form.reset();
     } catch (error: any) {
       if (error?.response?.status === 401) {
-        proModal.onOpen();
+        // proModal.onOpen();
       }
     } finally {
       router.refresh();

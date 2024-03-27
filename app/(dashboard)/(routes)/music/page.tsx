@@ -25,10 +25,10 @@ import { cn } from "@/lib/utils";
 import { Loader } from "@/components/Loader";
 import { UserAvatar } from "@/components/user-avatar";
 import { BotAvatar } from "@/components/bot-avatar";
-import { useProModal } from "@/hooks/use-pro-modal";
+// import { useProModal } from "@/hooks/use-pro-modal";
 
 const MusicPage: NextPage = () => {
-  const proModal = useProModal();
+  // const proModal = useProModal();
   const [music, setMusic] = useState<string>("");
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -51,7 +51,7 @@ const MusicPage: NextPage = () => {
       form.reset();
     } catch (error: any) {
       if (error?.response?.status === 401) {
-        proModal.onOpen();
+        // proModal.onOpen();
       }
     } finally {
       router.refresh();
